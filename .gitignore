@@ -1,0 +1,8 @@
+*:Zone.Identifier
+.DS_Store
+.vscode/
+__pycache__/
+*.pyc
+/target/
+/.anchor/
+node_modules/
