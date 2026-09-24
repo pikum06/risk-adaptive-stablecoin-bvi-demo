@@ -2,7 +2,9 @@
 
 ---
 
-### Intellectual Property & Replication Notice
+### Intellectual Property & Replication 
+
+**Notice:**
 
 This repository contains the backtest datasets, outcome visualizations, and front-end interface for the Behavioral Volatility Index (BVI) Driven Stablecoin Framework. The core BVI mathematical model, simulation engine, and Solana Anchor smart contract programs are maintained in a private repository pending intellectual property filings.
 
