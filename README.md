@@ -118,14 +118,14 @@ graph TD
 
 ## Visual Outputs
 
-- **results/bvi_trauma_analysis.png**
+- **bvi_trauma_analysis.png**
 
-  Multi-asset behavioral volatility metrics plotted across systemic panic windows.
+  ![BVI Response during Market Trauma](results/graphs/bvi_trauma_analysis.png)
 
-  ![BVI Trauma Analysis](results/bvi_trauma_analysis.png)
+  As shown in above figure, the model successfully quantifies the transition from stability to “market trauma” during the Terra-Luna de-pegging event. It can be seen that there is an inverse correlation between the Stablecoin Price and the BVI. Furthermore, as price volatility increases, the BVI scales proportionally capture the intensity of behavioral “fear” and capital flight. It can be visualized that when the stablecoin price and behavioral volatility index intersected with each other after 5th of May 2022, potentially shifting the sentiment from “Caution” to “Trauma” indicating that behavioral panic has overridden price stability. Further, as the gap widens between the two lines shows the de-pegging velocity. The intersection is the “point of no return” where standard fixed-fee protocols typically fail, but your BVI-adjusted model begins to exert resistance to preserve vault solvency.
 
-- **results/trauma_solvency_test.png**
-  
-  Comparative evaluation showing reserve preservation and avoided liquidations under dynamic BVI parameters versus static bonding curves.
+- **trauma_solvency_test.png**
 
-  ![Trauma Solvency Test](results/trauma_solvency_test.png)
+  ![Vault Solvency: Behavioral Resistance vs. Standard Bank Run](results/graphs/trauma_solvency_test.png)
+
+  The above graph shows that the mechanical advantage of a risk-adaptive framework over traditional fixed-fee models. In a simulated bank run environment based on May 2022 timeline data, the Standard (Fixed Fee) model represents a faster depletion of liquidity. On the contrary, the Behavioral (BVI Adjusted) model utilizes the BVI as a real-time signal to adjust protocol fees, slowing the rate of liquidity exit and preserving vault solvency for a longer duration.
