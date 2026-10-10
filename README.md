@@ -117,18 +117,15 @@ markdown
 
 ### 2. Python Analytics Setup
 
-Install repository dependencies and execute the analytics pipeline:
 
-```bash
-# Install Python dependencies
-pip install -r requirements.txt
+* *Install Python dependencies*
+    - pip install -r requirements.txt
 
-# Run BVI data sync, feature engineering, and plot generation
-python research/bvi_model.py
+* *Run BVI data sync, feature engineering, and plot generation*
+    - python research/bvi_model.py
 
-# Run bank-run solvency stress simulation
-python research/trauma_simulation.py
-```
+* *Run bank-run solvency stress simulation*
+    - python research/trauma_simulation.py
 
 ---
 
