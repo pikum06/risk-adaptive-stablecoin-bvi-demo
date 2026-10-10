@@ -115,8 +115,6 @@ markdown
 * **Anchor CLI:** `0.28.0+` / `0.29.0+`
 * **Node.js & Package Manager:** `Node v18+`, `yarn 1.22+`
 
----
-
 ### 2. Python Analytics Setup
 
 Install repository dependencies and execute the analytics pipeline:
