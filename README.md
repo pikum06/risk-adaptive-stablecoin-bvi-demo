@@ -1,13 +1,5 @@
 # Risk-Adaptive Stablecoin: Behavioral Volatility Index (BVI) Framework
 
-### Intellectual Property & Replication 
-
-**Notice:**
-
-This repository contains the backtest datasets, outcome visualizations, and front-end interface for the Behavioral Volatility Index (BVI) Driven Stablecoin Framework. The core BVI mathematical model, simulation engine, and Solana Anchor smart contract programs are maintained in a private repository pending intellectual property filings.
-
----
-
 **ABOUT**
 
 An analytical research suite and on-chain protocol framework designed to evaluate behavioral market stress and maintain stablecoin solvency during systemic run events. By integrating market sentiment data (e.g., Crypto Fear & Greed Index) alongside granular token price and volume telemetry, this project models dynamic risk parameters and backtests automated circuit breakers against historical liquidity shocks, such as the May 2022 Terra-Luna collapse.
@@ -20,18 +12,23 @@ An analytical research suite and on-chain protocol framework designed to evaluat
 .
 ├── data/
 │   ├── luna_project/
-│   │   └── terrausd.csv                       # Primary UST de-pegging price & volume telemetry
-│   └── sentiment_analysis/                    # Fear & Greed index & trauma sentiment metrics
+│   │   └── terrausd.csv                   # Primary UST de-pegging price & volume telemetry
+│   └── sentiment_analysis/
+│       └── fear_greed_index.csv           # Fear & Greed index & market psychology metrics
 ├── protocol/
-│   └── behavioral_stablecoin/                 # Solana Anchor smart contract protocol
+│   └── behavioral_stablecoin/             # Solana Anchor smart contract protocol
+├── research/
+│   ├── bvi_model.py                       # Behavioral Volatility Index execution pipeline
+│   └── trauma_simulation.py               # Vault solvency bank-run stress simulator
 ├── results/
 │   ├── csv/
-│   │   └── processed_trauma_data.csv          # Formatted backtest telemetry output
+│   │   └── processed_trauma_data.csv      # Synchronized BVI backtest telemetry output
 │   └── graphs/
-│       ├── bvi_trauma_analysis.png            # BVI volatility & trauma decay visual curve
-│       └── trauma_solvency_test.png           # Protocol reserve solvency stress test plot
-├── .gitignore                                 # Git ignore rules
-└── README.md                                  # Repository documentation
+│       ├── bvi_trauma_analysis.png        # BVI volatility & trauma response plot
+│       └── trauma_solvency_test.png       # Protocol reserve solvency stress test plot
+├── .gitignore                             # Git ignore rules
+├── README.md                              # Repository documentation
+└── requirements.txt                       # Python environment dependencies
 ```
 
 ---
@@ -41,17 +38,20 @@ An analytical research suite and on-chain protocol framework designed to evaluat
 ```mermaid
 graph TD
     %% Inputs
-    A[data/luna_project/*.csv<br/>Token Price & Volume] --> C[Behavioral Volatility Engine]
-    B[data/sentiment_analysis/*.csv<br/>Fear & Greed Index] --> C
+    A[data/luna_project/terrausd.csv<br/>Token Price & Volume] --> C[research/bvi_model.py<br/>Behavioral Volatility Engine]
+    B[data/sentiment_analysis/fear_greed_index.csv<br/>Fear & Greed Index] --> C
 
-    %% Analysis & Execution
-    C --> D[Trauma & Solvency Simulation]
-    D --> E[results/bvi_trauma_analysis.png]
-    D --> F[results/trauma_solvency_test.png]
+    %% BVI Execution & Processing
+    C --> D[data/processed_trauma_data.csv<br/>Synchronized Telemetry Output]
+    C --> E[results/graphs/bvi_trauma_analysis.png<br/>BVI Analysis Plot]
 
-    %% On-Chain Program
-    C --> G[protocol/behavioral_stablecoin<br/>Solana Anchor Program]
-    G --> H[Dynamic Solvency & Risk Control State]
+    %% Simulation Execution
+    D --> F[research/trauma_simulation.py<br/>Trauma & Solvency Simulator]
+    F --> G[results/graphs/trauma_solvency_test.png<br/>Solvency Test Plot]
+
+    %% On-Chain Program Integration
+    C --> H[protocol/behavioral_stablecoin/<br/>Solana Anchor Program]
+    H --> I[Dynamic Solvency & Risk Control State]
 ```
 
 ---
@@ -93,26 +93,44 @@ graph TD
 
 ## Core Components & Features
 
-1. **Behavioral Volatility Index (BVI):**
+1. **Behavioral Volatility Engine (`research/bvi_model.py`):**
+   - Synchronizes high-frequency 15-minute Terra/UST price telemetry (`terrausd.csv`) with market psychology metrics (`fear_greed_index.csv`) via backward `asof` merging to compute real-time peg deviation and fear-factor metrics.
 
-   - Combines high-frequency market liquidity metrics with macro sentiment indicators to detect early signals of irrational market behavior and bank runs.
+2. **Trauma & Solvency Simulator (`research/trauma_simulation.py`):**
+   - Backtests bank-run liquidity drawdowns during systemic collapse events, evaluating vault solvency retention by comparing fixed-fee baselines against dynamic, BVI-adjusted fee escalation curves.
 
-2. **Historical Stress Backtesting:**
-
-   - Utilizes complete market telemetry surrounding major stablecoin de-pegging events (e.g., Terra/UST, DAI, BUSD, USDT) to evaluate protocol reserve health under extreme stress.
-
-3. **On-Chain Anchor Smart Contract (protocol/behavioral_stablecoin):**
-
-   - Solana smart contract program engineered to adjust collateralization requirements, fee tiers, or transaction limits dynamically based on incoming BVI telemetry.
+3. **On-Chain Anchor Protocol (`protocol/behavioral_stablecoin/`):**
+   - Solana smart contract program engineered to process BVI risk telemetry and dynamically adjust collateralization requirements, transaction fees, and withdrawal limits on-chain.
   
 ---
 
-## Setup & Usage
+markdown
+## ⚙️ Setup & Usage
 
-1. **Smart Contract Build (Solana / Anchor)**
+### 1. System & Environment Dependencies
 
-  - `cd protocol/behavioral_stablecoin`
-  - `anchor build`
+* **Python:** `Python 3.10+`
+* **Rust Toolchain:** `1.70.0+` (`rustup`, `rustc`, `cargo`)
+* **Solana CLI:** `1.16+` or `1.18+`
+* **Anchor CLI:** `0.28.0+` / `0.29.0+`
+* **Node.js & Package Manager:** `Node v18+`, `yarn 1.22+`
+
+---
+
+### 2. Python Analytics Setup
+
+Install repository dependencies and execute the analytics pipeline:
+
+```bash
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Run BVI data sync, feature engineering, and plot generation
+python research/bvi_model.py
+
+# Run bank-run solvency stress simulation
+python research/trauma_simulation.py
+```
 
 ---
 
