@@ -104,8 +104,7 @@ graph TD
   
 ---
 
-markdown
-## ⚙️ Setup & Usage
+## Setup & Usage
 
 ### 1. System & Environment Dependencies
 
